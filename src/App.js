@@ -1,6 +1,6 @@
 import "./styles/reset.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState, useContext } from "react";
+//import { useState, useContext } from "react";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Home from "./Components/Home/Home";

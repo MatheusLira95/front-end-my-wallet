@@ -23,7 +23,7 @@ export default function CashFlow({ events, setEvent }) {
       ) : (
         <p className="no-event">Não há registros de entrada ou saída</p>
       )}
-      <Balance />
+      <Balance events={events} setEvent={setEvent} />
     </Body>
   );
 }

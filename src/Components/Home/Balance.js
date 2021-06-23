@@ -1,14 +1,25 @@
 import styled from "styled-components";
-export default function Balance() {
+import { useState, useEffect } from "react";
+export default function Balance({ events, setEvent }) {
+  const [balance, setBalance] = useState();
+
+  useEffect(() => {
+    const firstBalance = events.map((event) => event.value);
+    const total = firstBalance.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    setBalance(total);
+  }, [events]);
   return (
-    <Total>
+    <Total isHigherThanZero={balance}>
       <div>
         <p>SALDO</p>
       </div>
-      <div>{events.map(event => {
-        let total = 0;
-        total += event.value
-      })}</div>
+      <div>
+        <p className="total">
+          {balance ? `R$ ${(balance / 100).toFixed(2)}` : ""}
+        </p>
+      </div>
     </Total>
   );
 }
@@ -24,5 +35,8 @@ const Total = styled.div`
     font-weight: bold;
     font-size: 17px;
     line-height: 20px;
+  }
+  .total {
+    color: ${(props) => (props.isHigherThanZero > 0 ? "green" : "red")};
   }
 `;

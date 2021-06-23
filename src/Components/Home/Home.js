@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container } from "../Login";
 import Header from "./Header";
 import CashFlow from "./CashFlow";
+import BottomButtons from "./BottomButtons";
 
 export default function Home() {
   const [events, setEvents] = useState([
@@ -9,7 +10,7 @@ export default function Home() {
       id: 1,
       name: "Lanche",
       type: "exit",
-      value: 1500,
+      value: -1500,
       date: "DD/MM",
     },
     {
@@ -25,6 +26,7 @@ export default function Home() {
       <Container>
         <Header />
         <CashFlow events={events} setEvents={setEvents} />
+        <BottomButtons />
       </Container>
     </>
   );
