@@ -1,16 +1,19 @@
 import styled from "styled-components";
+import { useHistory } from "react-router";
 import { AddCircleOutline } from "react-ionicons";
 import { RemoveCircleOutline } from "react-ionicons";
 
 export default function BottomButtons() {
+  const history = useHistory();
   return (
     <>
       <Bottom>
-        <Button>
+        <Button onClick={() => history.push("/entrance")}>
           <AddCircleOutline color={"#ffffff"} height="25px" width="25px" />
           <p>Nova entrada</p>
         </Button>
-        <Button>
+
+        <Button onClick={() => history.push("/exit")}>
           <RemoveCircleOutline color={"#ffffff"} height="25px" width="25px" />
           <p>Nova saída</p>
         </Button>
