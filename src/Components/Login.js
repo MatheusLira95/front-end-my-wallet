@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -10,7 +11,9 @@ export default function Login() {
           <input placeholder="Senha" type="password"></input>
           <button>Entrar</button>
         </form>
-        <p className="register">Primeira vez? Cadastre-se!</p>
+        <Link to="register">
+          <p className="register">Primeira vez? Cadastre-se!</p>
+        </Link>
       </Container>
     </>
   );
@@ -18,12 +21,15 @@ export default function Login() {
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
   padding: 25px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 150px;
+  a {
+    text-decoration: none;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -55,7 +61,6 @@ const Container = styled.div`
     font-family: "Saira Stencil One";
     font-size: 32px;
     margin-bottom: 40px;
-    margin-top: 200px;
   }
   .register {
     color: #fff;

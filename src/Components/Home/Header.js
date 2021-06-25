@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { LogOutOutline } from "react-ionicons";
-
+import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <Head>
       <p>Olá, Fulano</p>
-      <LogOutOutline color={"#ffffff"} height="40px" width="40px" />
+      <Link to="/">
+        <LogOutOutline color={"#ffffff"} height="40px" width="40px" />
+      </Link>
     </Head>
   );
 }
