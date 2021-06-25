@@ -5,7 +5,6 @@ import axios from "axios";
 
 export default function CashFlow({ user }) {
   const [events, setEvents] = useState([]);
-  console.log(events);
   useEffect(() => {
     const config = {
       headers: { Authorization: `Bearer ${user.token}` },
