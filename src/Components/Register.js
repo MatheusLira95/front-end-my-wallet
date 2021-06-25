@@ -16,11 +16,10 @@ export default function Register() {
   function Subscribe(e) {
     e.preventDefault();
     const body = { email, name, password, confirmPass };
-    console.log(body);
     setDisabled(true);
     const request = axios.post("http://localhost:4000/sign-up", body);
     request.then(() => {
-      alert("Login feito com sucesso! Bem-vindo!");
+      alert("Cadastro feito com sucesso! Bem-vindo!");
       history.push("/");
     });
     request.catch((err) => {
@@ -34,26 +33,26 @@ export default function Register() {
         <p className="title">My Wallet</p>
         <form onSubmit={(e) => Subscribe(e)}>
           <input
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Nome"
             disabled={disabled}
           ></input>
           <input
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="E-mail"
             disabled={disabled}
           ></input>
           <input
-            onChange={(e) => setName(e.target.value)}
-            type="text"
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
             placeholder="Senha"
             disabled={disabled}
           ></input>
           <input
             onChange={(e) => setConfirmPass(e.target.value)}
-            type="text"
+            type="password"
             placeholder="Confirme a senha"
             disabled={disabled}
           ></input>

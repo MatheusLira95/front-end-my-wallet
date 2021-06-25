@@ -1,9 +1,40 @@
 import styled from "styled-components";
 import { ArrowBackOutline } from "react-ionicons";
 import { useHistory } from "react-router";
+import { useState } from "react";
+import axios from "axios";
+import Loader from "react-loader-spinner";
 
-export default function Entrance() {
+export default function Entrance({ user }) {
+  const [value, setValue] = useState();
+  const [name, setName] = useState();
+  const [disabled, setDisabled] = useState(false);
+
   const history = useHistory();
+
+  function Entry(e) {
+    e.preventDefault();
+    setDisabled(true);
+    const body = {
+      name,
+      type: "entrance",
+      value: value * 100,
+    };
+    const config = {
+      headers: { Authorization: `Bearer ${user.token}` },
+    };
+    const request = axios.post(
+      `http://localhost:4000/transactions/${user.user.id}`,
+      body,
+      config
+    );
+
+    request.then((response) => {
+      setDisabled(false);
+
+      history.push("/home");
+    });
+  }
 
   return (
     <>
@@ -18,10 +49,26 @@ export default function Entrance() {
           />
           Nova entrada
         </Title>
-        <Form>
-          <input placeholder="Valor"></input>
-          <input placeholder="Descrição"></input>
-          <button>Salvar entrada</button>
+        <Form onSubmit={(e) => Entry(e)}>
+          <input
+            onChange={(e) => setValue(e.target.value)}
+            type="text"
+            placeholder="Valor"
+            disabled={disabled}
+          ></input>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="Descrição"
+            disabled={disabled}
+          ></input>
+          <button onClick={Entry} disabled={disabled}>
+            {disabled ? (
+              <Loader type="ThreeDots" color="#FFF" height={40} width={45} />
+            ) : (
+              "Enviar"
+            )}
+          </button>
         </Form>
       </Margin>
     </>

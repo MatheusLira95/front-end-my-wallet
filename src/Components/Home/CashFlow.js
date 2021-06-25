@@ -1,12 +1,28 @@
 import styled from "styled-components";
 import Balance from "./Balance";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function CashFlow({ events, setEvent }) {
+export default function CashFlow({ user }) {
+  const [events, setEvents] = useState([]);
+  console.log(events);
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: `Bearer ${user.token}` },
+    };
+    const request = axios.get(
+      `http://localhost:4000/transactions/${user.user.id}`,
+      config
+    );
+    request.then((response) => {
+      setEvents(response.data);
+    });
+  }, [user.token, user.user.id]);
   return (
     <Body hasEvents={events}>
-      {events ? (
+      {events.length !== 0 ? (
         <ul>
-          {events.map((event) => {
+          {events?.map((event) => {
             return (
               <Event operationType={event.type}>
                 <div className="description">
@@ -23,16 +39,18 @@ export default function CashFlow({ events, setEvent }) {
       ) : (
         <p className="no-event">Não há registros de entrada ou saída</p>
       )}
-      <Balance events={events} setEvent={setEvent} />
+      <Balance events={events} setEvents={setEvents} />
     </Body>
   );
 }
+
 const Body = styled.div`
   width: 100%;
   background-color: #fff;
   display: flex;
   justify-content: center;
-  align-items: ${(props) => (props.hasEvents ? "flex-start" : "center")};
+  align-items: ${(props) =>
+    props.hasEvents.length !== 0 ? "flex-start" : "center"};
   height: 446px;
   border-radius: 5px;
   margin-top: 25px;

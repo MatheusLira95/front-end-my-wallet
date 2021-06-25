@@ -5,6 +5,7 @@ import { RemoveCircleOutline } from "react-ionicons";
 
 export default function BottomButtons() {
   const history = useHistory();
+
   return (
     <>
       <Bottom>

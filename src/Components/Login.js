@@ -1,15 +1,62 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useState } from "react";
+import Loader from "react-loader-spinner";
+import axios from "axios";
 
-export default function Login() {
+export default function Login({ setUser }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const history = useHistory();
+
+  if (localStorage.getItem("userSaved")) {
+    history.push("/home");
+  }
+
+  function Connect(e) {
+    e.preventDefault();
+    const body = { email, password };
+    setDisabled(true);
+    const request = axios.post("http://localhost:4000/sign-in", body);
+    request.then((res) => {
+      alert("Login feito com sucesso! Bem-vindo!");
+      setUser(res.data);
+      const userStorage = JSON.stringify(res.data);
+      localStorage.setItem("userSaved", userStorage);
+      setTimeout(() => {
+        history.push("/home");
+      }, 2000);
+    });
+    request.catch((err) => {
+      alert("Dados inseridos incorretamente, tente novamente.");
+      setDisabled(false);
+    });
+  }
   return (
     <>
       <Container>
         <p className="title">My Wallet</p>
-        <form>
-          <input placeholder="E-mail"></input>
-          <input placeholder="Senha" type="password"></input>
-          <button>Entrar</button>
+        <form onSubmit={(e) => Connect(e)}>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="E-mail"
+            disabled={disabled}
+          ></input>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="Senha"
+            disabled={disabled}
+          ></input>
+          <button onClick={Connect} disabled={disabled}>
+            {disabled ? (
+              <Loader type="ThreeDots" color="#FFF" height={40} width={45} />
+            ) : (
+              "Entrar"
+            )}
+          </button>
         </form>
         <Link to="register">
           <p className="register">Primeira vez? Cadastre-se!</p>
@@ -26,7 +73,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 60px;
   a {
     text-decoration: none;
   }

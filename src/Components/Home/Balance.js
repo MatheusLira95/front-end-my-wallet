@@ -4,10 +4,12 @@ export default function Balance({ events, setEvent }) {
   const [balance, setBalance] = useState();
 
   useEffect(() => {
-    const firstBalance = events.map((event) => event.value);
-    const total = firstBalance.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
+    const firstBalance = events?.map((event) => event.value);
+    let total = 0;
+    firstBalance?.forEach((value) => {
+      total += value;
+    });
+
     setBalance(total);
   }, [events]);
   return (

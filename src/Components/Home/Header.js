@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { LogOutOutline } from "react-ionicons";
 import { Link } from "react-router-dom";
-export default function Header() {
+export default function Header({ user }) {
   return (
     <Head>
-      <p>Olá, Fulano</p>
+      <p>Olá, {user.user.name}</p>
       <Link to="/">
-        <LogOutOutline color={"#ffffff"} height="40px" width="40px" />
+        <LogOutOutline
+          color={"#ffffff"}
+          height="40px"
+          width="40px"
+          onClick={() => {
+            localStorage.removeItem("userSaved");
+          }}
+        />
       </Link>
     </Head>
   );
