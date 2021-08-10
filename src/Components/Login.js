@@ -18,7 +18,10 @@ export default function Login({ setUser }) {
     e.preventDefault();
     const body = { email, password };
     setDisabled(true);
-    const request = axios.post("http://localhost:4000/sign-in", body);
+    const request = axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/sign-in`,
+      body
+    );
     request.then((res) => {
       alert("Login feito com sucesso! Bem-vindo!");
       setUser(res.data);

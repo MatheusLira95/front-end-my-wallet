@@ -17,7 +17,10 @@ export default function Register() {
     e.preventDefault();
     const body = { email, name, password, confirmPass };
     setDisabled(true);
-    const request = axios.post("http://localhost:4000/sign-up", body);
+    const request = axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/sign-up`,
+      body
+    );
     request.then(() => {
       alert("Cadastro feito com sucesso! Bem-vindo!");
       history.push("/");

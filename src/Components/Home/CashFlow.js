@@ -10,7 +10,7 @@ export default function CashFlow({ user }) {
       headers: { Authorization: `Bearer ${user.token}` },
     };
     const request = axios.get(
-      `http://localhost:4000/transactions/${user.user.id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/transactions/${user.user.id}`,
       config
     );
     request.then((response) => {

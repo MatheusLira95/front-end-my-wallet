@@ -24,7 +24,7 @@ export default function Entrance({ user }) {
       headers: { Authorization: `Bearer ${user.token}` },
     };
     const request = axios.post(
-      `http://localhost:4000/transactions/${user.user.id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/transactions/${user.user.id}`,
       body,
       config
     );
