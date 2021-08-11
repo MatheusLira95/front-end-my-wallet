@@ -72,7 +72,7 @@ export default function Login({ setUser }) {
 const Container = styled.div`
   width: 100%;
   display: flex;
-  padding: 25px;
+  padding: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -83,7 +83,10 @@ const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    width: 326px;
+    width: 500px;
+    @media (max-width: 530px) {
+      width: 100%;
+    }
   }
   input {
     height: 58px;
